@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/posts", {
@@ -19,7 +20,29 @@ function Posts() {
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error(error));
+
+    fetch("http://localhost:3000/user/info", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setCurrentUser(data))
+      .catch((error) => console.error(error));
   }, []);
+
+  const deletePost = (postId) => {
+    fetch(`http://localhost:3000/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then(() => {
+        setPosts(posts.filter((post) => post.id !== postId));
+      })
+      .catch((error) => console.error(error));
+  };
 
   const getUserEmail = (userId) => {
     const user = users.find((user) => user.id === userId);
@@ -36,6 +59,9 @@ function Posts() {
             <h2>{post.title}</h2>
             <p>{post.body}</p>
             <h3>Author: {getUserEmail(post.user_id)}</h3>
+            {currentUser && currentUser.id === post.user_id && (
+              <button onClick={() => deletePost(post.id)}>Delete</button>
+            )}
           </li>
         ))}
       </ul>
