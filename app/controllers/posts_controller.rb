@@ -10,7 +10,8 @@ class PostsController < ApplicationController
   end
   # GET /posts/1
   def show
-    render json: @post
+    serialized_posts = PostSerializer.new(@post).serializable_hash
+    render json: serialized_posts[:data]
   end
 
   # POST /posts

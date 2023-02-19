@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
@@ -58,6 +57,7 @@ function Posts() {
        <li key={post.id}>
        <h2>{post.title}</h2>
        <p>{post.body}</p>
+       <Link to={`/posts/${post.id}`}>Show</Link>
        {post.image && <img src={post.image_url} alt="Post Image" width={200} height={200} />}
        <h3>Author: {getUserEmail(post.user_id)}</h3>
        {currentUser && currentUser.id === post.user_id && (
