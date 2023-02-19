@@ -55,14 +55,18 @@ function Posts() {
       <Link to="/create-post">Create Post</Link>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
-            <h3>Author: {getUserEmail(post.user_id)}</h3>
-            {currentUser && currentUser.id === post.user_id && (
-              <button onClick={() => deletePost(post.id)}>Delete</button>
-            )}
-          </li>
+       <li key={post.id}>
+       <h2>{post.title}</h2>
+       <p>{post.body}</p>
+       {
+        console.log(post.image_url)
+       }
+       {post.image && <img src={post.image_url} alt="Post Image" />}
+       <h3>Author: {getUserEmail(post.user_id)}</h3>
+       {currentUser && currentUser.id === post.user_id && (
+         <button onClick={() => deletePost(post.id)}>Delete</button>
+       )}
+     </li>
         ))}
       </ul>
     </div>

@@ -5,9 +5,9 @@ class PostsController < ApplicationController
   # GET /posts
   def index
     @posts = Post.order(id: :desc)
-    render json: @posts
+    serialized_posts = PostSerializer.new(@posts).serializable_hash
+    render json: serialized_posts[:data].map {|post| post[:attributes]}
   end
-
   # GET /posts/1
   def show
     render json: @post
@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_user.posts.build(post_params)
-
+    # @post.image.attach(params[:image]) # image fayli yuklanadi
     if @post.save
       render json: @post, status: :created, location: @post
     else
@@ -46,6 +46,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, :user_id)
+      params.require(:post).permit(:title, :body,:user_id, :image) # image parametri qo'shilgan
     end
 end
