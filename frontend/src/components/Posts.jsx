@@ -57,13 +57,19 @@ function Posts() {
        <li key={post.id}>
        <h2>{post.title}</h2>
        <p>{post.body}</p>
-       <Link to={`/posts/${post.id}`}>Show</Link>
-       {post.image && <img src={post.image_url} alt="Post Image" width={200} height={200} />}
        <h3>Author: {getUserEmail(post.user_id)}</h3>
+       
+      <Link to={`/posts/${post.id}`}>
+       {post.image && <img src={post.image_url} alt="Post Image" width={200} height={200} />}
+       </Link><br />
+       <div>
+       <Link to={`/posts/${post.id}`}>Show</Link><br /><br />
+       </div>
        {currentUser && currentUser.id === post.user_id && (
          <button onClick={() => deletePost(post.id)}>Delete</button>
        )}
      </li>
+        
         ))}
       </ul>
     </div>
