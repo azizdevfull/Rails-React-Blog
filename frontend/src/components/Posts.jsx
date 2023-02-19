@@ -58,10 +58,7 @@ function Posts() {
        <li key={post.id}>
        <h2>{post.title}</h2>
        <p>{post.body}</p>
-       {
-        console.log(post.image_url)
-       }
-       {post.image && <img src={post.image_url} alt="Post Image" />}
+       {post.image && <img src={post.image_url} alt="Post Image" width={200} height={200} />}
        <h3>Author: {getUserEmail(post.user_id)}</h3>
        {currentUser && currentUser.id === post.user_id && (
          <button onClick={() => deletePost(post.id)}>Delete</button>
