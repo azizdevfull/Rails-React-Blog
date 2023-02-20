@@ -31,6 +31,7 @@ function PostDetails() {
       .then((data) => setUsers(data))
       .catch((error) => console.error(error));
 
+      if (localStorage.getItem("token")){
       fetch("http://localhost:3000/user/info", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -39,7 +40,7 @@ function PostDetails() {
         .then((response) => response.json())
         .then((data) => setCurrentUser(data))
         .catch((error) => console.error(error));
-
+    }
     fetchPost();
   }, [id]);
 

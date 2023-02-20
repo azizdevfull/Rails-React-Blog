@@ -20,6 +20,7 @@ function Posts() {
       .then((data) => setUsers(data))
       .catch((error) => console.error(error));
 
+      if (localStorage.getItem("token")){
     fetch("http://localhost:3000/user/info", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -28,8 +29,8 @@ function Posts() {
       .then((response) => response.json())
       .then((data) => setCurrentUser(data))
       .catch((error) => console.error(error));
+    }
   }, []);
-
   const deletePost = (postId) => {
     fetch(`http://localhost:3000/posts/${postId}`, {
       method: "DELETE",

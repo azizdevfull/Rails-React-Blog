@@ -27,8 +27,10 @@ function Register() {
     axios.post('http://localhost:3000/api/v1/users', { user })
       .then(response => {
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('email', response.data.email);
-        navigate('/');
+        // localStorage.setItem('email', response.data.email);
+        // window.location.reload();
+        // navigate('/');
+        window.location.href = "/";
       })
       .catch(error => {
         if (error.response) {

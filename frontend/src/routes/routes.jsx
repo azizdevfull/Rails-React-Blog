@@ -15,8 +15,8 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/posts" element={<Posts />} />
-      <Route path="/posts/:id" element={<PostDetails />} /> {/* add the PostDetails route */}
-      <Route path="/create-post" element={<CreatePost />} />
+      <Route path="/posts/:id" element={<PostDetails />} />
+      <Route path="/create-post" element={token ? <CreatePost /> : <Navigate to="/" />} />
 
       {!token && (
         <>

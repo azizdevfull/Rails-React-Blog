@@ -29,9 +29,9 @@ function Login() {
     axios.post('http://localhost:3000/api/v1/login', { user })
       .then(response => {
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('email', response.data.email);
+        // localStorage.setItem('email', response.data.email);
         setCurrentUser(response.data.user);
-        navigate('/');
+        window.location.href = "/";
       })
       .catch(error => {
         if (error.response) {
